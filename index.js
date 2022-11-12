@@ -43,7 +43,7 @@ const gameBoard = (() => {
 
 
  
-
+ 
 
 
     return {  };
@@ -59,47 +59,116 @@ const displayController = (() => {
     // o display touch 
     // clear display
 
+    let isTurnX = true;
+    let bothPlayerSignCount = 0;
+    let isContinue = true;
 
+
+    
 
 
 
     const gameboardCells = document.querySelectorAll(".gameboard-cell");
 
-    let isTurnX = true;
+    // console.log(typeof(gameboardCells))
+
+    document.querySelector(".restart-btn").addEventListener('click', clearSign => {
+        gameboardCells.forEach((cell) => {
+            cell.textContent = "";
+            cell.classList.remove('clicked');
+            isTurnX = true;
+            bothPlayerSignCount = 0;
+            isContinue = true;
+            console.log("press")
+            console.log(cell);
+        })
+        console.log(gameboardCells)
+    })
 
 
 
 
-    gameboardCells.forEach((gameboardCell) => {
-
-        gameboardCell.addEventListener('click', () => {
 
 
-            // console.log(gameboardCell);
 
-            if (!gameboardCell.classList.contains('clicked')  ) {
 
-                gameboardCell.classList.add("clicked")
-                console.log(gameboardCell);
-                
 
-                if (isTurnX) {
-                    displaySign(gameboardCell, x.getSign);
-                    isTurnX = false;
-                    console.log(isTurnX)
-                } else {
-                    displaySign(gameboardCell, o.getSign);
-                    isTurnX = true;
-                    console.log(isTurnX)
+
+        gameboardCells.forEach((gameboardCell) => {
+
+
+
+            gameboardCell.addEventListener('click', () => {
+    
+    
+                // console.log(gameboardCell);
+    
+                if (!gameboardCell.classList.contains('clicked') && isContinue) {
+
+
+                    console.log("iscontinue",isContinue);
+
+
+
+
+
+    
+                    console.log('SIgn', bothPlayerSignCount )
+    
+                    gameboardCell.classList.add("clicked")
+                    console.log(gameboardCell);
+                    
+    
+    
+                    if (isTurnX) {
+                        displaySign(gameboardCell, x.getSign);
+                        isTurnX = false;
+                        console.log(isTurnX)
+                    } else {
+                        displaySign(gameboardCell, o.getSign);
+                        isTurnX = true;
+                        console.log(isTurnX)
+                    }
+    
+                    bothPlayerSignCount++;
+    
+    
+                    let currentPlayerSign = !isTurnX ? x.getSign : o.getSign;
+    
+                    if (bothPlayerSignCount > 4) {
+                        if (checkWin(currentPlayerSign)) {
+                            console.log(currentPlayerSign, `WINNER`)
+    
+                            isContinue = false;
+                            console.log(isContinue)
+    
+                        } else if (bothPlayerSignCount == 9) {
+                            console.log("DRAW!!!")
+    
+                            isContinue = false;
+                        }
+                    } 
+    
+    
+                    
                 }
-                
-            }
-
+    
+    
             
     
-        });
-    });
+       
 
+        
+            });
+        });
+    
+
+
+    
+
+
+    
+    // console.log(bothPlayerSignCount);
 
 
 
@@ -123,7 +192,6 @@ const displayController = (() => {
         })
     }
 
-console.log(checkWin('x'));
 
 
 
