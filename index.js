@@ -27,8 +27,8 @@ const Player = (sign) => {
     return { getSign };
 };
 
-const x = Player('x')
-const o = Player('o')
+const x = Player('X')
+const o = Player('O')
 console.log(x.getSign)
 console.log(o.getSign)
 
@@ -63,8 +63,14 @@ const displayController = (() => {
     let bothPlayerSignCount = 0;
     let isContinue = true;
 
-
     
+    
+    
+    
+    let messageDisplay = document.querySelector(".message")
+    messageDisplay.textContent = `Player X's turn`
+
+
 
 
 
@@ -79,6 +85,8 @@ const displayController = (() => {
             isTurnX = true;
             bothPlayerSignCount = 0;
             isContinue = true;
+            messageDisplay.textContent = `Player X's turn`
+
             console.log("press")
             console.log(cell);
         })
@@ -122,10 +130,12 @@ const displayController = (() => {
     
                     if (isTurnX) {
                         displaySign(gameboardCell, x.getSign);
+                        messageDisplayUpdate(o.getSign)
                         isTurnX = false;
                         console.log(isTurnX)
                     } else {
                         displaySign(gameboardCell, o.getSign);
+                        messageDisplayUpdate(x.getSign)
                         isTurnX = true;
                         console.log(isTurnX)
                     }
@@ -138,17 +148,27 @@ const displayController = (() => {
                     if (bothPlayerSignCount > 4) {
                         if (checkWin(currentPlayerSign)) {
                             console.log(currentPlayerSign, `WINNER`)
-    
+                            messageDisplay.textContent = `Player ${currentPlayerSign} has WON!`
+
                             isContinue = false;
                             console.log(isContinue)
     
                         } else if (bothPlayerSignCount == 9) {
                             console.log("DRAW!!!")
+                            messageDisplay.textContent = `It's a draw!`
     
                             isContinue = false;
                         }
                     } 
     
+
+
+                    
+                
+                    
+                    
+
+
     
                     
                 }
@@ -171,7 +191,9 @@ const displayController = (() => {
     // console.log(bothPlayerSignCount);
 
 
-
+    const messageDisplayUpdate = (currentPlayerSign) => {
+        messageDisplay.textContent = `Player ${currentPlayerSign}'s turn`
+    }
 
     const winCombinations = [
         [0, 1, 2],
