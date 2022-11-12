@@ -41,7 +41,12 @@ const gameBoard = (() => {
 
     // message change 
 
-    return {};
+
+ 
+
+
+
+    return {  };
 
 })();
 
@@ -72,8 +77,6 @@ const displayController = (() => {
 
             // console.log(gameboardCell);
 
-            
-
             if (!gameboardCell.classList.contains('clicked')  ) {
 
                 gameboardCell.classList.add("clicked")
@@ -101,6 +104,29 @@ const displayController = (() => {
 
 
 
+    const winCombinations = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+    ];
+
+    const checkWin = (currentPlayerSign) => {
+        return winCombinations.some(combination => {
+            return combination.every(index => {
+                return gameboardCells[index].textContent.includes(currentPlayerSign)
+            })
+        })
+    }
+
+console.log(checkWin('x'));
+
+
+
 
     const displaySign = (cell, sign) => {
         // const i = document.createElement('i');
@@ -115,7 +141,7 @@ const displayController = (() => {
 
 
 
-    return {}
+    return { gameboardCells }
 
 })();
 
