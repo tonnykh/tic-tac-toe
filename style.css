@@ -14,6 +14,7 @@ header {
     margin-top: 20px;
     margin-bottom: 50px;
 }
+
 h1 {
     font-size: 4rem;
 }
@@ -29,6 +30,7 @@ h1 {
     height: 380px;
     margin-bottom: 35px;
 }
+
 .gameboard-cell {
     border: 1px solid black;
 }
@@ -52,14 +54,29 @@ footer {
     justify-content: center;
     font-size: 1.2rem;
 }
+
 a {
     color: inherit;
 
 }
+
 .fa-github {
     margin-left: 4px;
 }
+
 .fa-github:hover {
     transform: rotate(360deg) scale(1.4);
     transition: transform 0.3s ease-in-out;
+}
+
+
+/* JS "X" display */
+.gameboard-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.fa-x {    
+    position: absolute;
+    font-size: 2rem;
 }
