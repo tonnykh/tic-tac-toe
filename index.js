@@ -20,19 +20,24 @@
 
 
 //Factories
-const player = (sign) => {
-    
-    const getSign = () => sign;
+const Player = (sign) => {
+
+    const getSign = sign;
 
     return { getSign };
 };
 
+const x = Player('x')
+const o = Player('o')
+console.log(x.getSign)
+console.log(o.getSign)
 
 
 
 //Module GAME BOARD
 const gameBoard = (() => {
     
+    const board = []
 
     // message change 
 
@@ -55,15 +60,36 @@ const displayController = (() => {
 
     const gameboardCells = document.querySelectorAll(".gameboard-cell");
 
+    let isTurnX = true;
+
+
+
 
     gameboardCells.forEach((gameboardCell) => {
 
         gameboardCell.addEventListener('click', () => {
 
+
+            // console.log(gameboardCell);
+
+            
+
             if (!gameboardCell.classList.contains('clicked')  ) {
+
                 gameboardCell.classList.add("clicked")
                 console.log(gameboardCell);
-                displayX(gameboardCell);
+                
+
+                if (isTurnX) {
+                    displaySign(gameboardCell, x.getSign);
+                    isTurnX = false;
+                    console.log(isTurnX)
+                } else {
+                    displaySign(gameboardCell, o.getSign);
+                    isTurnX = true;
+                    console.log(isTurnX)
+                }
+                
             }
 
             
@@ -76,19 +102,32 @@ const displayController = (() => {
 
 
 
+    const displaySign = (cell, sign) => {
+        // const i = document.createElement('i');
+        // i.classList.add("fa-solid");
+        // i.classList.add("fa-x");
+        // cell.appendChild(i);
+
+        cell.textContent = sign
+    
+    }
+    
+
+
+
     return {}
 
 })();
 
 
 
-function displayX(cell) {
-    const i = document.createElement('i');
-    i.classList.add("fa-solid");
-    i.classList.add("fa-x");
-    cell.appendChild(i);
+// function displayX(cell) {
+//     const i = document.createElement('i');
+//     i.classList.add("fa-solid");
+//     i.classList.add("fa-x");
+//     cell.appendChild(i);
 
-}
+// }
 
 
 
@@ -144,8 +183,8 @@ function displayX(cell) {
 
 
 
-const gameControl = (() => {
-    const playerX = player("X");
-    const playerO = player("O");
-})();
+// const gameControl = (() => {
+//     const playerX = player("X");
+//     const playerO = player("O");
+// })();
 
